@@ -1,0 +1,38 @@
+<style>
+    img{
+        max-width: 200px;
+        max-height: 200px;
+        width: auto;
+        height: auto;
+    }
+</style>
+<a href="{% url 'walt:index' %}"> Home</a>
+<h1>{{ character.name }}</h1>
+<h3> {{ character.nickname }}</h3>
+
+<h5> Appears in: {{ character.category }} </h5>
+<img src= {{ character.img }} alt="default.png">
+<h4> Id: {{ character.char_id }}</h4>
+<h4> Status:</h4>
+<p> {{ character.status }}</p>
+<h4> Occupation(s): </h4>
+<ul>
+{% for occupation in character.occupation %}
+    <li>{{ occupation }}</li>
+{% endfor %}
+</ul>
+<h4> Portrayed by: </h4>
+<p> {{ character.portrayed }}</p>
+<p> Appears in the following seasons: </p>
+{% if character.appearance %}
+    <p> Breaking Bad Seasons: </p>
+    {% for season in character.appearance %}
+        <a href="{% url 'walt:index' season=season show=0 %}">{{ season }}</a>
+    {% endfor %}
+{% endif %}
+{% if character.better_call_saul_appearance %}
+    <p> Better Call Saul Seasons: </p>
+    {% for season in character.better_call_saul_appearance %}
+        <a href="{% url 'walt:index' season=season show=1 %}">{{ season }}</a>
+    {% endfor %}
+{% endif %}
