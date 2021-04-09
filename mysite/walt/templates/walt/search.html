@@ -1,0 +1,26 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+{% load walt_filters %}
+<h3> Search Results:</h3>
+{% for character in page_obj %}
+<form action="{% url 'walt:cdetail' character.name|plusify %}" >
+    <input type="submit" class="character" value= '{{ character.name }}'/>
+</form>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?char_name={{ char_name }}&page=1">&laquo; first</a>
+            <a href="?char_name={{ char_name }}&page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?char_name={{ char_name }}&page={{ page_obj.next_page_number }}">next</a>
+            <a href="?char_name={{ char_name }}&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>

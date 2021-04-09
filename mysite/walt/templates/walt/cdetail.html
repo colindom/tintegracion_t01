@@ -36,3 +36,12 @@
         <a href="{% url 'walt:index' season=season show=1 %}">{{ season }}</a>
     {% endfor %}
 {% endif %}
+{% if quotes %}
+<h4> Famous quotes: </h4>
+<ul>
+    {% for quote in quotes %}
+     <li> {{ quote.quote }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+

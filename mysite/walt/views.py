@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+from django.core.paginator import Paginator
 import requests
 
 # Create your views here.
@@ -25,4 +26,20 @@ def cdetail(request, character):
         info = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/characters?name=' + character).json()
     except:
         raise Http404("There was an error retrieving information for that character")
-    return render(request, 'walt/cdetail.html', {'character': info[0]})
+    try:
+        quotes = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/quote?author='  + character).json()
+    except:
+        quotes = ["There was an error retrieving quotes for that character"]
+    return render(request, 'walt/cdetail.html', {'character': info[0], 'quotes': quotes})
+
+def search(request):
+    query = request.GET.get('char_name').replace(' ', '+')
+    try:
+        result = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/characters?name=' + query).json()
+        paginate = Paginator(result, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginate.get_page(page_number)
+    except:
+        raise Http404("There was an error retrieving information for that character")
+    return render(request, 'walt/search.html', {'page_obj': page_obj, 'char_name': query})
+        
