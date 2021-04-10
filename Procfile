@@ -1,1 +1,1 @@
-web: gunicorn t1-breaking-bad.wsgi
+web: gunicorn mysite.wsgi
