@@ -40,7 +40,7 @@
 <h4> {{ episode.series }}</h4>
 <h3> Season {{ episode.season }}, Episode {{ episode.episode }} </h3>
 
-<p> Original airdate: {{ episode.air_date }} </p>
+<p> Original airdate: {{ episode.air_date|only_date }} </p>
 <h3> Characters in this episode: </h3>
 
 {% for character in episode.characters %}

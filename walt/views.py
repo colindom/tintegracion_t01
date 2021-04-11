@@ -8,8 +8,14 @@ import requests
 
 # Create your views here.
 def index(request, show='', season = ''):
-    episodes_bad = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/episodes?series=Breaking+Bad').json()
-    episodes_saul = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/episodes?series=Better+Call+Saul').json()
+    try:
+        episodes_bad = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/episodes?series=Breaking+Bad').json()
+    except:
+        episodes_bad = {}
+    try:
+        episodes_saul = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/episodes?series=Better+Call+Saul').json()
+    except:
+        episodes_saul = {}
     breaking = {i : [x for x in episodes_bad if x['season'] == i ] for i in sorted(list(set(h['season'] for h in episodes_bad)))}
     saul = {i : [x for x in episodes_saul if x['season'] == i] for i in sorted(list(set(h['season'] for h in episodes_saul)))}
     return render(request, 'walt/index.html', {'breaking': breaking, 'saul': saul})

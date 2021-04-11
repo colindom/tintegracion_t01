@@ -57,18 +57,22 @@
 </ul>
 <h4> Portrayed by: </h4>
 <p> {{ character.portrayed }}</p>
-<p> Appears in the following seasons: </p>
+<h5> Appears in the following seasons: </h5>
+<p> Breaking Bad Seasons: </p>
 {% if character.appearance %}
-    <p> Breaking Bad Seasons: </p>
     {% for season in character.appearance %}
         <a href="{% url 'walt:index' season=season show=0 %}">{{ season }}</a>
     {% endfor %}
+  {% else %}
+  <p> None </p>
 {% endif %}
+<p> Better Call Saul Seasons: </p>
 {% if character.better_call_saul_appearance %}
-    <p> Better Call Saul Seasons: </p>
     {% for season in character.better_call_saul_appearance %}
         <a href="{% url 'walt:index' season=season show=1 %}">{{ season }}</a>
     {% endfor %}
+{% else %}
+  <p> None (so far!)</p>
 {% endif %}
 {% if quotes %}
 <h4> Famous quotes: </h4>
