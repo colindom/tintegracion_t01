@@ -25,12 +25,17 @@ def edetail(request, episode_id):
         episode = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/episodes/' + str(episode_id)).json()
     except:
         raise Http404("There was an error retrieving information for that episode")
+    if not episode:
+        raise Http404("There was an error retrieving information for that episode")
     return render(request, 'walt/edetail.html', {'episode': episode[0]})
 
 def cdetail(request, character):
     try:
         info = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/characters?name=' + character).json()
     except:
+        raise Http404("There was an error retrieving information for that character")
+    print(info)
+    if not info:
         raise Http404("There was an error retrieving information for that character")
     try:
         quotes = requests.get('https://tarea-1-breaking-bad.herokuapp.com/api/quote?author='  + character).json()
