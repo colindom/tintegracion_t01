@@ -95,7 +95,7 @@ transition: max-height 0.2s ease-out;
 
 {% if breaking %}
   {% for season, elist in breaking.items %}
-      <button type="button" id="Breaking {{ forloop.counter }}", class="collapsible">Season {{ season }}</button>
+      <button type="button" id="Breaking {{ season }}", class="collapsible">Season {{ season }}</button>
       <div class="content">
           {% for episode in elist %}
               <form action="{% url 'walt:edetail' episode.episode_id %}" >
@@ -112,7 +112,7 @@ transition: max-height 0.2s ease-out;
 <h1> Better Call Saul </h1>
 {% if saul %}
   {% for season, elist in saul.items %}
-      <button type="button" id = "Saul {{ forloop.counter }}" class="collapsible">Season {{ season }}</button>
+      <button type="button" id = "Saul {{ season }}" class="collapsible">Season {{ season }}</button>
       <div class="content">
           {% for episode in elist %}
           <form action="{% url 'walt:edetail' episode.episode_id %}" >
